@@ -1,0 +1,8 @@
+version: "3.6"
+services:
+  bdfr:
+    build: .
+    ports:
+      - "7634:7634"
+    volumes:
+      - ${PWD}/default_config.cfg:/bdfr/bulkredditdownloader/default_config.cfg
