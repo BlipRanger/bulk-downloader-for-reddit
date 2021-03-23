@@ -5,4 +5,4 @@ services:
     ports:
       - "7634:7634"
     volumes:
-      - ${PWD}/default_config.cfg:/bdfr/bulkredditdownloader/default_config.cfg
+      - ${PWD}/data/:/bdfr/bulkredditdownloader/
