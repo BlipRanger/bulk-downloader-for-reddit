@@ -23,4 +23,5 @@ COPY . /bdfr
 WORKDIR /bdfr
 
 # Useful so the image doubles as reference to the binary
-#ENTRYPOINT ["bash"]
+
+ENTRYPOINT /bin/bash
