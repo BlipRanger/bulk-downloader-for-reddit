@@ -78,7 +78,12 @@ class Archiver(RedditDownloader):
                         <div><img href={content}></div>
                         """.format(content=entry.submission)
             for c in entry.compile()['comments']:
-                html = html + """{comment}""".format(comment=c)
+                html = html + """<div id={id} class="comment">
+                <div class="info">
+                <div class="time">{created}</div>
+                <div class="score">{score}</div>
+                <div class=author>{author}</div></div>
+                <p>{body}</p></div>""".format(body=c['body'], created=c['created_utc'], score=c['score'], author=c['author'], id=c['id'])
             html = html + """</body>
                         </html>"""    
             file.write(html)
