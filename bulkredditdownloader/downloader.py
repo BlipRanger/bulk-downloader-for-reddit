@@ -313,6 +313,10 @@ class RedditDownloader:
         for generator in self.reddit_lists:
             for submission in generator:
                 logger.debug(f'Attempting to download submission {submission.id}')
+                try:
+                    submission = submission.submission
+                except:
+                    self._download_submission(submission)
                 self._download_submission(submission)
 
     def _download_submission(self, submission: praw.models.Submission):

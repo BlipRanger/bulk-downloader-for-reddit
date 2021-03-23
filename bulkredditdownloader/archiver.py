@@ -35,6 +35,8 @@ class Archiver(RedditDownloader):
             self._write_submission_xml(archive_entry)
         elif self.args.format == 'yaml':
             self._write_submission_yaml(archive_entry)
+        elif self.args.format == 'html':
+            self._write_submission_html(archive_entry)
         else:
             raise ArchiverError(f'Unknown format {self.args.format} given')
         logger.info(f'Record for submission {submission.id} written to disk')
@@ -63,3 +65,20 @@ class Archiver(RedditDownloader):
         with open(file_path, 'w') as file:
             logger.debug(f'Writing submission {entry.submission.id} to file in YAML format at {file_path}')
             yaml.dump(entry.compile(), file)
+
+    def _write_submission_html(self, entry: ArchiveEntry):
+        resource = Resource(entry.submission, '', '.html')
+        file_path = self.file_name_formatter.format_path(resource, self.download_directory)
+        file_path.parent.mkdir(exist_ok=True, parents=True)
+        with open(file_path, 'w') as file:
+            logger.debug(f'Writing submission {entry.submission.id} to file in HTML format at {file_path}')
+            html = """<html>
+                        <head></head>
+                        <body>
+                        <div><img href={content}></div>
+                        """.format(entry.submission)
+            for c in entry.comments:
+                html = html + """{comment}""".format(c)
+            html = html + """</body>
+                        </html>"""    
+            file.write(html)
