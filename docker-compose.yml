@@ -2,6 +2,8 @@ version: "3.6"
 services:
   bdfr:
     build: .
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
     ports:
       - "7634:7634"
     volumes:
