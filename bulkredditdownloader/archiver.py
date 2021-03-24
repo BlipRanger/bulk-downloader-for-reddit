@@ -70,6 +70,8 @@ class Archiver(RedditDownloader):
         resource = Resource(entry.submission, '', '.html')
         file_path = self.file_name_formatter.format_path(resource, self.download_directory)
         file_path.parent.mkdir(exist_ok=True, parents=True)
+        details = entry.compile()['post_details']
+        submission = entry.compile()['submission']
         with open(file_path, 'w') as file:
             logger.debug(f'Writing submission {entry.submission.id} to file in HTML format at {file_path}')
             html = """<html>
@@ -85,7 +87,7 @@ class Archiver(RedditDownloader):
                         <h2>Comments</h2>
                         </div>
                         <div><img href=></div>
-                        """.format(submission=entry.submission, content=entry.post_details.get('selftext', ''), url=entry.post_details.get('permalink', ''), link=entry.post_details.get('url',''), title=entry.post_details.get('title',''))
+                        """.format(submission=submission.get('submission', ''), content=details.get('selftext', ''), url=details.get('permalink', ''), link=entry.details.get('url',''), title=details.get('title',''))
             for c in entry.compile()['comments']:
                 html = html + """<div id={id} class="comment">
                 <div class="info">
