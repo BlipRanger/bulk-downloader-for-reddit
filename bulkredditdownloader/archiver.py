@@ -86,7 +86,7 @@ class Archiver(RedditDownloader):
                         <h2>Comments</h2>
                         </div>
                         <div><img href=></div>
-                        """.format(submission=details.get('submission', ''), content=details.get('selftext', ''), url=details.get('permalink', ''), link=entry.details.get('url',''), title=details.get('title',''))
+                        """.format(submission=details.get('submission', ''), content=details.get('selftext', ''), url=details.get('permalink', ''), link=details.get('url',''), title=details.get('title',''))
             for c in entry.compile()['comments']:
                 html = html + """<div id={id} class="comment">
                 <div class="info">
