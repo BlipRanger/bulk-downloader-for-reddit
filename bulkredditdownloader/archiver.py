@@ -70,7 +70,7 @@ class Archiver(RedditDownloader):
         resource = Resource(entry.submission, '', '.html')
         file_path = self.file_name_formatter.format_path(resource, self.download_directory)
         file_path.parent.mkdir(exist_ok=True, parents=True)
-        details = entry.compile()['post_details']
+        details = entry.compile()
         submission = entry.compile()['submission']
         with open(file_path, 'w') as file:
             logger.debug(f'Writing submission {entry.submission.id} to file in HTML format at {file_path}')
