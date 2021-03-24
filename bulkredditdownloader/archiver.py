@@ -68,6 +68,10 @@ class Archiver(RedditDownloader):
 
     def _write_submission_html(self, entry: ArchiveEntry):
         resource = Resource(entry.submission, '', '.html')
+        try:
+            selftext = entry.post_details['selftext']
+        except:
+            selftext = ""
         file_path = self.file_name_formatter.format_path(resource, self.download_directory)
         file_path.parent.mkdir(exist_ok=True, parents=True)
         with open(file_path, 'w') as file:
@@ -85,7 +89,7 @@ class Archiver(RedditDownloader):
                         <h2>Comments</h2>
                         </div>
                         <div><img href=></div>
-                        """.format(submission=entry.submission, content=entry.post_details['selftext'], url=entry.post_details['permalink'], link=entry.post_details['url'], title=entry.post_details['title'],)
+                        """.format(submission=entry.submission, content=selftext, url=entry.post_details['permalink'], link=entry.post_details['url'], title=entry.post_details['title'],)
             for c in entry.compile()['comments']:
                 html = html + """<div id={id} class="comment">
                 <div class="info">
