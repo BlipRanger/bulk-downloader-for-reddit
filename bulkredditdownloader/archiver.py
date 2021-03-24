@@ -75,8 +75,17 @@ class Archiver(RedditDownloader):
             html = """<html>
                         <head></head>
                         <body>
-                        <div><img href={content}></div>
-                        """.format(content=entry.submission)
+                        <div class=post>
+                        <h1>{title}</h1>
+                        <div class="info">
+                        <div class="links">
+                        <a href="{link}">reddit link</a> | <a href="{url}"></a></div>
+                        </div>
+                        <div class=content><img href='./media/{submission}.*'><p>{content}</p></div>
+                        <h2>Comments</h2>
+                        </div>
+                        <div><img href=></div>
+                        """.format(submission=entry.submission, content=entry.post_details['selftext'], url=entry.post_details['permalink'], link=entry.post_details['url'], title=entry.post_details['title'],)
             for c in entry.compile()['comments']:
                 html = html + """<div id={id} class="comment">
                 <div class="info">
